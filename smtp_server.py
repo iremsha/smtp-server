@@ -4,23 +4,27 @@ import json
 import socket
 import string
 import sys
+from subprocess import Popen, PIPE
 
 
 class SMTPServerInterface:
 
     def __init__(self):
-        self.fr = ''
+        self._from = ''
         self.to = ''
         self.body = ''
 
     def helo(self, args):
         return None
 
+    def ehlo(self, args):
+        return None
+
     def auth(self, args):
         return None
 
     def mail_from(self, args):
-        self.fr = args.replace('\r\n', '').replace('MAIL FROM:', '')
+        self._from = args.replace('\r\n', '').replace('MAIL FROM:', '')
         return None
 
     def rcpt_to(self, args):
@@ -34,7 +38,7 @@ class SMTPServerInterface:
     # write mail to file, filename - microtime, data - json serialized
     def quit(self, args):
         f = open(str(microtime(datetime.datetime.now())) + '.json.pymail', 'w')
-        f.write(json.dumps({'from': self.fr, 'to': self.to, 'body': self.body}, separators=(',', ':')))
+        f.write(json.dumps({'from': self._from, 'to': self.to, 'body': self.body}, separators=(',', ':')))
         f.close()
         return None
 
@@ -83,8 +87,12 @@ class SMTPServerInterfaceDebug(SMTPServerInterface):
     def helo(self, args):
         print()
         'Received "helo"', args.replace('\n', '')
-        print('Successful')
         SMTPServerInterface.helo(self, args)
+
+    def ehlo(self, args):
+        print()
+        'Received "ehlo"', args.replace('\n', '')
+        SMTPServerInterface.ehlo(self, args)
 
     def auth(self, args):
         print()
@@ -117,28 +125,31 @@ class SMTPServerInterfaceDebug(SMTPServerInterface):
         'Received "RSET"', args.replace('\n', '')
 
 
-class SMTPServerEngine:
-
-    ST_INIT = 0
-    ST_HELO = 1
-    ST_MAIL = 2
-    ST_RCPT = 3
-    ST_DATA = 4
-    ST_QUIT = 5
-    ST_LOGIN = 6
+class SMTPServerCore:
+    STATE_INIT = 0
+    STATE_HELO = 1
+    STATE_EHLO = 2
+    STATE_MAIL = 3
+    STATE_RCPT = 4
+    STATE_DATA = 5
+    STATE_QUIT = 6
+    STATE_LOGIN = 7
 
     def __init__(self, socket, impl):
         self.impl = impl
         self.socket = socket
-        self.state = SMTPServerEngine.ST_INIT
-        self.login = ''
-        self.password = ''
-        self.local_host = 'ir.com'
-        self.defoult_smtp = ''
+        self.state = SMTPServerCore.STATE_INIT
+        self.user_login = ''
+        self.user_password = ''
+        self.recipient = ''
+        self.user_host = ''
+        self.recipient_host = ''
+        self.local_host = 'remsha.online'
+        self.default_smtp = 'mx.yandex.ru'
 
-    def chug(self):
+    def work_session(self):
 
-        self.socket.send(b'220 Welcome\n')
+        self.socket.send(b'220 Welcome\n It is My SMTP Server.')
         while 1:
             data = ''
             complete_line = 0
@@ -148,23 +159,28 @@ class SMTPServerEngine:
                 part = part.decode()
                 if len(part):
                     data += part
+                    '''Что это такое?'''
                     if len(data) >= 2:
                         complete_line = 1
-                        if self.state == SMTPServerEngine.ST_LOGIN:
+                        if self.state == SMTPServerCore.STATE_LOGIN:
                             try:
-                                if not self.login:
-                                    self.login = base64.b64decode(data.encode()).decode()
-                                elif not self.password:
-                                    self.password = base64.b64decode(data.encode()).decode()
-                                elif self.login and self.password:
-                                    self.detect_host(self.login)
-                                    if self.defoult_smtp:
-                                        self.send()
+                                if not self.user_login:
+                                    self.user_login = base64.b64decode(data.encode()).decode()
+                                elif not self.user_password:
+                                    self.user_password = base64.b64decode(data.encode()).decode()
+                                elif self.user_login and self.user_password:
+                                    self.detect_host(self.user_login)
+                                    if self.in_my_part('remsha.online'):
+                                        self.send_in_my_mailbox()
+                                    else:
+                                        mail_exchanger = self.find_his_smtp()
+                                        self.send_mail(mail_exchanger)
                             except Exception as ex:
                                 print('Ошибка: {}'.format(ex))
-                        if self.state != SMTPServerEngine.ST_DATA:
+                        '''Если не данные то.. отправляем то, что прочитали. Иначе принимаем данные'''
+                        if self.state != SMTPServerCore.STATE_DATA:
                             rsp, keep = self.do_command(data)
-                            print(rsp, keep, sep='!')
+                            print(rsp)
                         else:
                             rsp = self.do_data(data)
                             if rsp is None:
@@ -178,78 +194,131 @@ class SMTPServerEngine:
                     return
         return
 
+    def detect_host(self, host):
+        host = host[host.find('@') + 1:]
+        self.user_host = host
+        return host
+
+    def in_my_part(self, my_host):
+        print(my_host, 1)
+        print(self.recipient_host, 2)
+        return my_host == self.recipient_host
+
     def do_command(self, data):
         cmd = data[0:4]
         cmd = cmd.upper()
         keep = 1
         rv = None
-        if cmd == 'HELO' or cmd == 'EHLO':
-            print('EHLO')
-            self.state = SMTPServerEngine.ST_HELO
+        if cmd == 'HELO':
+            self.state = SMTPServerCore.STATE_HELO
+            ''''Тупо бесполезная штука'''
             rv = self.impl.helo(data)
+        elif cmd == 'EHLO':
+            self.state = SMTPServerCore.STATE_EHLO
+            ''''Тупо бесполезная штука - Вернёт None'''
+            rv = self.impl.ehlo(data)
         elif cmd == 'AUTH':
-            print('AUTH')
             rv = self.impl.auth(data)
-            self.state = SMTPServerEngine.ST_LOGIN
-
-        elif cmd == "RSET":
-            rv = self.impl.reset(data)
-            self.dataAccum = ""
-            self.state = SMTPServerEngine.ST_INIT
-        elif cmd == "NOOP":
-            pass
+            self.state = SMTPServerCore.STATE_LOGIN
+        elif cmd == "MAIL":
+            self.user_login = data[11:-2]
+            ''''Пока что без авторизации'''
+            # if self.state != SMTPServerCore.STATE_LOGIN:
+            # return (b"503 Bad command sequence", 1)
+            self.state = SMTPServerCore.STATE_MAIL
+            rv = self.impl.mail_from(data)
+        elif cmd == "RCPT":
+            self.recipient = data[9:-2]
+            if self.state != SMTPServerCore.STATE_MAIL:  # and (self.state != SMTPServerCore.STATE_RCPT):
+                return b"503 Bad command sequence", 1
+            self.state = SMTPServerCore.STATE_RCPT
+            rv = self.impl.rcpt_to(data)
+        elif cmd == "DATA":
+            if self.state != SMTPServerCore.STATE_RCPT:
+                return b"503 Bad command sequence", 1
+            self.state = SMTPServerCore.STATE_DATA
+            self.data_accum = ""
+            return b"354 OK, Enter data, terminated with a \\r\\n.\\r\\n", 1
         elif cmd == "QUIT":
             rv = self.impl.quit(data)
             keep = 0
-        elif cmd == "MAIL":
-            if self.state != SMTPServerEngine.ST_LOGIN:
-                return (b"503 Bad command sequence", 1)
-            self.state = SMTPServerEngine.ST_MAIL
-            rv = self.impl.mail_from(data)
-        elif cmd == "RCPT":
-            if (self.state != SMTPServerEngine.ST_MAIL) and (self.state != SMTPServerEngine.ST_RCPT):
-                return (b"503 Bad command sequence", 1)
-            self.state = SMTPServerEngine.ST_RCPT
-            rv = self.impl.rcpt_to(data)
-        elif cmd == "DATA":
-            print('DATa')
-            if self.state != SMTPServerEngine.ST_RCPT:
-                return (b"503 Bad command sequence", 1)
-            self.state = SMTPServerEngine.ST_DATA
-            self.dataAccum = ""
-            return (b"354 OK, Enter data, terminated with a \\r\\n.\\r\\n", 1)
+            '''---------------------ОСНОВНОЙ БЛОК КОМАНД---------------------'''
+        elif cmd == "RSET":
+            rv = self.impl.reset(data)
+            self.data_accum = ""
+            self.state = SMTPServerCore.STATE_INIT
+        elif cmd == "NOOP":
+            pass
         else:
             return (b"505 Eh? WTF was that?", 1)
 
+        '''Что это?'''
         if rv:
             return (rv, keep)
         else:
             return (b"250 OK", keep)
 
     def do_data(self, data):
+        host = self.detect_host(self.recipient)
+        if self.in_my_part('remsha.online'):
+            self.send_in_my_mailbox()
+        else:
+            print('Письмо не в мой ящик!')
+            mail_exchanger = self.find_his_smtp(host)
+            self.send_mail(mail_exchanger)
+            print('заебумба')
 
-        self.dataAccum = self.dataAccum + data
-        if len(self.dataAccum) > 4 and self.dataAccum[-5:] == '\r\n.\r\n':
-            self.dataAccum = self.dataAccum[:-5]
-            rv = self.impl.data(self.dataAccum)
-            self.state = SMTPServerEngine.ST_HELO
+        '''
+        print(data)
+        self.data_accum = self.data_accum + data
+        if len(self.data_accum) > 4 and self.data_accum[-1] == '.':
+            self.data_accum = self.data_accum[:-2]
+            rv = self.impl.data(self.data_accum)
+            print('Data pass')
+            print(self.data_accum)
+            self.state = SMTPServerCore.STATE_HELO
             if rv:
                 return rv
             else:
                 return b"250 OK - Data and terminator. found"
         else:
             return None
+        '''
+    def send_in_my_mailbox(self):
+        pass
 
-    def detect_host(self, host):
-        host = host[host.find('@')+1:]
-        if host != self.local_host:
-            self.defoult_smtp = 'smtp.yandex.ru'
+    def find_his_smtp(self, hots):
+        with Popen(['nslookup', "-type=MX", hots], stdout=PIPE) as cmd:
+            answer = cmd.stdout.read().decode('cp1256')
+            _MX_record = answer.split('\n')[3]
+            idx = _MX_record.find('mail exchanger = ')
+            mail_exchanger = _MX_record[idx + len('mail exchanger = '):-1]
+        return mail_exchanger
 
+    def send_mail(self, mail_exchanger):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.connect((mail_exchanger, 25))
+            print('dead')
+            print(sock.recv(1024).decode())
+            print(self.send_command(sock,
+                                    b'EHLO ' + self.local_host.encode()))
+            print(self.send_command(sock, b'MAIL FROM:<' + 'ir@remsha.online'.encode() + b'>'))
+            recipient = self.recipient
+            print(self.send_command(sock, b'RCPT TO:<' + recipient.encode() + b'>'))
+            self.send_command(sock, b'DATA')
+            prepared_message = self.prepare_message_text('Simple message')
+            print('mail from:', self.user_login)
+            msg = self.create_message(self.user_login, recipient, 'SMTP', prepared_message)
+            print(msg)
+            print(self.send_command(sock, msg.encode()))
+
+    '''
     def send(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect(('smtp.yandex.ru', 465))
             print(sock.recv(1024).decode())  # Вычитываем что-то там, на 1 опаздываем
-            print(self.send_command(sock, b'EHLO remsha.online'))  # Разница HELO EHLO, почему одна L // КОДЫ КОМАНД 250 - хорошо
+            print(self.send_command(sock,
+                                    b'EHLO remsha.online'))  # Разница HELO EHLO, почему одна L // КОДЫ КОМАНД 250 - хорошо
             print(self.send_command(sock, b'MAIL FROM:' + self.login.encode()))
             recipient = self.login  # Получатель
             print(self.send_command(sock, b'RCPT TO:' + recipient.encode()))
@@ -258,14 +327,14 @@ class SMTPServerEngine:
             msg = self.create_message(self.login, recipient, 'SMTP', prepared_message)
             print(msg)
             print(self.send_command(sock, msg.encode()))
-
+    '''
     def create_message(self, login, recipient, theme, message_text):  # attachment
         BOUNDARY = 0
         return (
             f'From: {login}\n'
             f'To: {recipient}\n'
             f'MIME-Version: 1.0\n'
-            f'Subject: {theme}\n\n'
+            f'Subject: {theme}\n'
             f'Content-Type: multipart/mixed;; boundary="{BOUNDARY}"\n\n'
             f'--{BOUNDARY}\n'
             f'Content-Transfer-Encoding: 8bit\n'
@@ -302,16 +371,18 @@ class SMTPServer:
 
     def __init__(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.socket.bind(("", 25))
+        self.socket.bind(('0.0.0.0', 3122))
         self.socket.listen(5)
 
-    def serve(self, impl=None):
+    def wait_connection(self, impl=None):
         while 1:
             conn, addr = self.socket.accept()
+            print(conn, addr)
             if impl is None:
+                ''''Now i don't know why this is Interface'''
                 impl = SMTPServerInterfaceDebug()
-            engine = SMTPServerEngine(conn, impl)
-            engine.chug()
+            engine = SMTPServerCore(conn, impl)
+            engine.work_session()
 
 
 def console_setting(key=''):
@@ -328,6 +399,6 @@ if __name__ == '__main__':
         port = int(sys.argv[1])
     else:
         port = 25
-    s = SMTPServer
+    s = SMTPServer()
     print('Server Start')
-    s.serve()
+    s.wait_connection()
