@@ -3,10 +3,23 @@ import resolver
 import sender
 from mailbox import Mailbox
 
+import mimetypes
+import email
+
 
 def parse_data(data):
+    print('-----------------------------')
+    b = email.message_from_string(data)
+    if b.is_multipart():
+        print(b['From'])
+        print(b['To'])
+        print(b['Subject'])
+        for payload in b.get_payload():
+            # if payload.is_multipart(): ...
+                print(payload.get_payload())
+    print('-----------------------------')
     header = data[:data.find('MIME-Version: 1.0\n'):]
-    print(header)
+    # print(header)
     return '', '', '', ''
 
 
