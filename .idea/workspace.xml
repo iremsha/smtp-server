@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/mailoffice.py" line="42" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="580065e8-00f4-4f53-981f-206d0bc2b7ce" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mailbox/ig@remsha.online/.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mailbox.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailbox.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mailoffice.py" beforeDir="false" afterPath="$PROJECT_DIR$/mailoffice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,7 +18,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/SMTP_Server$main.coverage" NAME="main Coverage Results" MODIFIED="1559983447260" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/SMTP_Server$main.coverage" NAME="main Coverage Results" MODIFIED="1560171113805" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/SMTP_Server$smtp_server.coverage" NAME="smtp_server Coverage Results" MODIFIED="1559924809618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
@@ -34,8 +40,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/smtp_server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2354">
-              <caret line="149" selection-start-line="149" selection-end-line="149" />
+            <state relative-caret-position="1078">
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -46,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/mailoffice.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+            <state relative-caret-position="246">
+              <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -56,22 +62,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://C:/Program Files (x86)/Python36-32/Lib/email/__init__.py">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+            <state relative-caret-position="136">
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
+        <entry file="file://C:/Program Files (x86)/Python36-32/Lib/base64.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="119">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
         </entry>
@@ -89,7 +95,7 @@
         <entry file="file://$PROJECT_DIR$/resolver.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="220">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -98,7 +104,7 @@
         <entry file="file://$PROJECT_DIR$/mailbox.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+              <caret line="18" selection-start-line="18" selection-end-line="18" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -109,8 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sender.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-143">
-              <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+            <state>
+              <caret column="13" selection-start-column="13" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -127,6 +133,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>do_data</find>
+      <find>text/html</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -135,13 +142,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/user.py" />
         <option value="$PROJECT_DIR$/client.py" />
         <option value="$PROJECT_DIR$/resolver.py" />
         <option value="$PROJECT_DIR$/sender.py" />
         <option value="$PROJECT_DIR$/smtp_server.py" />
         <option value="$PROJECT_DIR$/mailbox.py" />
+        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/mailoffice.py" />
       </list>
     </option>
@@ -259,12 +266,15 @@
       <workItem from="1559548577659" duration="8652000" />
       <workItem from="1559753488018" duration="30000" />
       <workItem from="1559883903773" duration="14981000" />
-      <workItem from="1559922510829" duration="9395000" />
+      <workItem from="1559922510829" duration="9962000" />
+      <workItem from="1560064452196" duration="3664000" />
+      <workItem from="1560086391013" duration="1201000" />
+      <workItem from="1560141121497" duration="5846000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49108000" />
+    <option name="totallyTimeSpent" value="60386000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1554" height="916" extended-state="6" />
@@ -275,7 +285,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32822478" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.50319284" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5121328" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -331,13 +341,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/smtp_server.py">
+    <entry file="file://C:/Program Files (x86)/Python36-32/Lib/datetime.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2354">
-          <caret line="149" selection-start-line="149" selection-end-line="149" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="121">
+          <caret line="1359" column="21" lean-forward="true" selection-start-line="1359" selection-start-column="21" selection-end-line="1359" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Python36-32/Lib/email/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-473">
+          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -351,31 +365,14 @@
     <entry file="file://$PROJECT_DIR$/resolver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Program Files (x86)/Python36-32/Lib/datetime.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="1359" column="21" lean-forward="true" selection-start-line="1359" selection-start-column="21" selection-end-line="1359" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mailbox.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="17" column="29" lean-forward="true" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="29" />
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
@@ -384,22 +381,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sender.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-143">
-          <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+        <state>
+          <caret column="13" selection-start-column="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files (x86)/Python36-32/Lib/email/__init__.py">
+    <entry file="file://$PROJECT_DIR$/smtp_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="31" column="4" selection-start-line="31" selection-start-column="4" selection-end-line="31" selection-end-column="4" />
+        <state relative-caret-position="1078">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Python36-32/Lib/base64.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mailoffice.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="16" column="39" selection-start-line="16" selection-start-column="39" selection-end-line="16" selection-end-column="39" />
+        <state relative-caret-position="246">
+          <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>

@@ -1,5 +1,4 @@
 import sys
-
 from smtp_server import SMTPServer
 
 

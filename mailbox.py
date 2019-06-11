@@ -9,6 +9,15 @@ def microtime(dt):
     return unixtime.days * 24 * 60 * 60 + unixtime.seconds + unixtime.microseconds / 1000000.0
 
 
+def set_letter(forward, recipient, topic, text):
+    letter_body = 'Mail from: {0}\n' \
+                  'Mail to: {1}\n' \
+                  'Subject: {2}\n\n' \
+                  '{3}\n\n'\
+                  'Data: {4}'.format(forward, recipient, topic, text, datetime.datetime.now())
+    return letter_body
+
+
 class Mailbox:
     def __init__(self, name):
         self.name = name
@@ -20,5 +29,7 @@ class Mailbox:
             os.makedirs(self.path)
 
     def write_letter(self, forward, recipient, topic, text):
-        with open(self.path + topic + text + '.txt', 'w') as f:
-            f.write(text)
+        letter = set_letter(forward, recipient, topic, text)
+        with open(self.path + topic + '.txt', 'w') as f:
+            f.write(letter)
+
