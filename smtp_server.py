@@ -1,4 +1,3 @@
-import base64
 import socket
 from client import Forward, Recipient
 from mailoffice import MailOffice
@@ -6,11 +5,19 @@ LOCAL_HOST = 'remsha.online'
 
 
 def send_command(sock, command, buffer=1024):
+    """
+    Отправляем команду SMTP-Serve-y получателя или клиенту.
+    :param sock:
+    :param command:
+    :param buffer:
+    :return: Прочитанный ответ
+    """
     sock.send(command + b'\n')
     return sock.recv(buffer).decode()
 
 
 class SMTPServerCore:
+
     STATE_INIT = 0
     STATE_HELO = 1
     STATE_EHLO = 2
@@ -29,6 +36,10 @@ class SMTPServerCore:
         self.recipient = Recipient()
 
     def session(self):
+        """
+        Главный цикл общения сервера и клиента.
+        :return:
+        """
         self.socket.send(b'220 mail.remsha.online SMTP is glad to see you!\n')
         while True:
             data = ''
@@ -37,30 +48,34 @@ class SMTPServerCore:
             while not complete_line:
                 part = self.socket.recv(1024)
                 part = part.decode()
-                '''Мб убрать?'''
                 if len(part):
                     data += part
-                    '''Что это такое?'''
                     if len(data) >= 2:
                         complete_line = 1
                         if self.state != SMTPServerCore.STATE_DATA:
-                            code = self.do_command(data)
+                            code, keep_connection = self.do_command(data)
                             print(code)
                         else:
                             code = self.mail_office.do_data(data)
+                            keep_connection = 1
                             if code is None:
                                 continue
                         self.socket.send(code + b"\n")
-                        '''if keep == 0:
+                        if not keep_connection:
                             self.socket.close()
-                            return'''
                 else:
                     # EOF
                     return
 
     def do_command(self, data):
+        """
+        Разбираем команду которую получили от клиента и меняем состояние сервера, возвращаем код операции.
+        :param data:
+        :return:
+        """
         cmd = data[0:4]
         cmd = cmd.upper()
+        keep_connection = 1
         info_log = ' {} '.format(cmd)
 
         if cmd == 'HELO':
@@ -82,51 +97,33 @@ class SMTPServerCore:
 
         elif cmd == "RCPT":
             if self.state != SMTPServerCore.STATE_MAIL:
-                return b"503 Bad command sequence"
+                return b"503 Bad command sequence", 0
             self.recipient.login = data[9:-2]
             info_log += self.recipient.login
             self.state = SMTPServerCore.STATE_RCPT
 
         elif cmd == "DATA":
             if self.state != SMTPServerCore.STATE_RCPT:
-                return b"503 Bad command sequence"
+                return b"503 Bad command sequence", 0
             self.state = SMTPServerCore.STATE_DATA
             self.mail_office.forward = self.forward
             self.mail_office.recipient = self.recipient
-            self.data_accum = ""
-            return b"354 OK, Enter data, terminated with a \\r\\n.\\r\\n"
+            return b"354 OK, Enter data, terminated with a \\r\\n.\\r\\n", keep_connection
 
         elif cmd == "QUIT":
-            pass
-            '''---------------------ОСНОВНОЙ БЛОК КОМАНД---------------------'''
+            return b"221 remsha.online Service closing ", 0
 
         elif cmd == "RSET":
-            self.data_accum = ""
             self.state = SMTPServerCore.STATE_INIT
 
         elif cmd == "NOOP":
-            pass
+            return b"250 I Can Fly", keep_connection
+
 
         else:
-            return b"505 Eh? WTF was that?"
+            return b"505 Bad command", 0
 
-        return b"250 OK" + info_log.encode()
-    '''
-    print(data)
-    self.data_accum = self.data_accum + data
-    if len(self.data_accum) > 4 and self.data_accum[-1] == '.':
-        self.data_accum = self.data_accum[:-2]
-        rv = self.impl.data(self.data_accum)
-        print('Data pass')
-        print(self.data_accum)
-        self.state = SMTPServerCore.STATE_HELO
-        if rv:
-            return rv
-        else:
-            return b"250 OK - Data and terminator. found"
-    else:
-        return None
-    '''
+        return b"250 OK" + info_log.encode(), keep_connection
 
 
 class SMTPServer:
@@ -144,9 +141,6 @@ class SMTPServer:
 
 
 '''
-#
-# Some helper functions for manipulating from & to addresses etc.
-#
 
 def stripAddress(address):
     """

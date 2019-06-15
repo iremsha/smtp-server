@@ -1,51 +1,112 @@
 import base64
+import codecs
+from email.header import decode_header
 import resolver
 import sender
 from mailbox import Mailbox
 import email
+import re
 
-temp_part_counter = 0
+
+def parse_simple_letter(mail):
+    """
+    Парсим простое письмо, если в нейм нет Бордеров.
+    :param mail:
+    :return:
+    """
+    mail = mail[mail.find('\n\n')+2:]
+    return clean_html(mail)
+
+
+def decode_image(data):
+    """
+    Декодируем изображение и записываем его в фаил.
+    :param data:
+    :return:
+    """
+    PATH = r'C:\Users\Remsha\Documents\GitHub\SMTP-Server\Mailbox\attachment'
+    name = '\\' + data[14:21]
+    data = base64.b64decode(data)
+    with open(PATH+name+'.png', 'wb') as f:
+        f.write(data)
+    print('Done')
+
+
+def clean_header(mail_obj):
+    """
+    Убираем закодированные доп. заголовки которые прикрутил отправитель.
+    :param mail_obj:
+    :return:
+    """
+    answer = ''
+    obj = decode_header(mail_obj)
+    len_obj = len(obj)
+    for i in range(len_obj):
+        text = obj[i][0]
+        code = obj[i][1]
+        if code:
+            text = codecs.decode(text, code)
+        elif isinstance(text, bytes):
+            text = text.decode()
+        answer += text
+    print(answer)
+    return answer
+
+
+def clean_html(raw_html):
+    """
+    Извлекаем текст из HTML-тегов. (Яндекс отправляет с тегами)
+    :param raw_html:
+    :return:
+    """
+    clean_l = re.compile('<.*?>')
+    clean_text = re.sub(clean_l, '', raw_html)
+    print(clean_text)
+    return clean_text
 
 
 def parse_data(data):
-    with open('test.txt', 'r') as f:
-        data = f.read()
-    global temp_part_counter
-    mail_from, mail_to, mail_subject, mail_body = '', '', '', ''
-    mail_end = False
-    temp_part_counter += 1
-    print('-----------------------------')
+    """
+    Разбираем поступившие данные, получаем все заголовки и тело письма.
+    :param data:
+    :return:
+    """
+
+    # Тестим то, как декодируются сообщения
+    # with open('Letters\\mail_test_img_text.txt', 'r') as f:
+    #  data = f.read()
+
+    mail_from, mail_to, mail_subject, mail_body, mail_date = '', '', '', '', ''
     mail = email.message_from_string(data)
-    '''if mail.is_multipart():
-        mail_from = mail['From']
-        mail_to = mail['To']
-        mail_subject = mail['Subject']
-        for payload in mail.get_payload():
-            # if payload.is_multipart(): ...
-                mail_body = payload.get_payload()
-                if mail_body[-1] == ".":
-                    mail_end = True
-    print(temp_part_counter)
-    print('-----------------------------')'''
+    mail_from = clean_header(mail['From'])
+    mail_to = clean_header(mail['To'])
+    try:
+        mail_subject = clean_header(mail['Subject'])
+        mail_date = clean_header(mail['Date'])
+    except TypeError as e:
+        pass
 
     if mail.is_multipart():
-        print('+++++++++++++++++++++++++')
+        for payload in mail.get_payload():
+            # if payload.is_multipart():
+                mail_body = payload.get_payload()
+                if not mail_body:
+                    parse_simple_letter(data)
+
+        """Для Атачмента"""
         for part in mail.walk():
             ctype = part.get_content_type()
-            #print(ctype)
-            cdispo = str(part.get('Content-Disposition'))
-            #print(cdispo)
 
-            # skip any text/plain (txt) attachments
-            #if ctype == 'text/plain' and 'attachment' not in cdispo:
             if ctype == 'image/jpeg':
-                body = part.get_payload()  # decode
-                print(body)
-            #break
-    # not multipart - i.e. plain text, no attachments, keeping fingers crossed
-    else:
-        body = mail.get_payload(decode=True)
+                body = part.get_payload()
+                decode_image(body)
+            elif ctype == 'text/html':
+                body = part.get_payload()
+                mail_body = clean_html(body)
 
+    else:
+        # Если это было обычное письмо без раздение на части
+        mail_body = parse_simple_letter(data)
     return mail_from, mail_to, mail_subject, mail_body
 
 
@@ -64,7 +125,7 @@ class MailOffice:
         else:
             print('Find Recipient SMTP')
             mail_exchanger = resolver.find_RR_MX(self.recipient.host)
-            sender.send_mail(mail_exchanger, data, self.recipient)
+            return sender.send_mail(mail_exchanger, data, self.recipient)
 
     def detect_host(self, name):
         host = name[name.find('@') + 1:]
@@ -78,7 +139,6 @@ class MailOffice:
         if body:
             mailbox = Mailbox(self.recipient.login)
             mailbox.write_letter(forward, recipient, topic, body)
-
 
     '''
     def create_message(self, login, recipient, theme, message_text):  # attachment
