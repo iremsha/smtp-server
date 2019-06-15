@@ -6,6 +6,7 @@
       <w>microtime</w>
       <w>nslookup</w>
       <w>remsha</w>
+      <w>rset</w>
       <w>smtp</w>
       <w>unixtime</w>
     </words>

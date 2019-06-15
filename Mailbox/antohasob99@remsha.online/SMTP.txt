@@ -1,0 +1,7 @@
+Mail from: Антон Соболев <antohasob99@yandex.ru>
+Mail to: antohasob99 <antohasob99@yandex.ru>
+Subject: SMTP
+
+Simple text example!
+
+Data: 2019-06-16 01:29:39.003242

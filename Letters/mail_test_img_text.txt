@@ -1,3 +1,57 @@
+Received: from mxback21g.mail.yandex.net ([127.0.0.1])
+	by mxback21g.mail.yandex.net with LMTP id Om6TXPm7
+	for <antohasob99@yandex.ru>; Sun, 9 Jun 2019 16:16:34 +0300
+Received: from mxback21g.mail.yandex.net (localhost.localdomain [127.0.0.1])
+	by mxback21g.mail.yandex.net (Yandex) with ESMTP id C8C8143812A4
+	for <antohasob99@yandex.ru>; Sun,  9 Jun 2019 16:16:34 +0300 (MSK)
+X-Yandex-Internal: 1
+Received: from localhost (localhost [::1])
+	by mxback21g.mail.yandex.net (nwsmtp/Yandex) with ESMTP id R6kUJYC3wn-GYIiKqhj;
+	Sun, 09 Jun 2019 16:16:34 +0300
+X-Yandex-Front: mxback21g.mail.yandex.net
+X-Yandex-TimeMark: 1560086194.494
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail; t=1560086194;
+	bh=VxK+PrcqPxoWJK1SqETDMRYuOdykQm9JoZUmiaZkVgA=;
+	h=Message-Id:Date:Subject:To:From;
+	b=DF5rywOkdHWeZuGcqgCLnqRsIwTr+Xzb1lKefPqr030eBztbbyrHYSXQscY9w6M7y
+	 9Rriepw3JtyWYUx7VmQnIZxkqdK+hfF02ebGFh/G5QJbW9TZ2N2E2VGffRG8UkeIvD
+	 nnkuZU7PcK8rxsTghU564bggPbga8Ab8Rvnbi7kc=
+Authentication-Results: mxback21g.mail.yandex.net; dkim=pass header.i=@yandex.ru
+X-Yandex-Spam: 1
+X-Yandex-Sender-Uid: 860495106
+Received: by sas1-063d61d846d8.qloud-c.yandex.net with HTTP;
+	Sun, 09 Jun 2019 16:16:34 +0300
+From: =?utf-8?B?0JDQvdGC0L7QvSDQodC+0LHQvtC70LXQsg==?= <antohasob99@yandex.ru>
+To: antohasob99 <antohasob99@yandex.ru>
+Subject: =?utf-8?B?0JrQsNGA0YLQuNC90LrQsA==?=
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Sun, 09 Jun 2019 18:16:34 +0500
+Message-Id: <2508171560086194@sas1-063d61d846d8.qloud-c.yandex.net>
+Content-Type: multipart/mixed;
+	boundary="----==--bound.250819.sas1-063d61d846d8.qloud-c.yandex.net"
+Return-Path: antohasob99@yandex.ru
+X-YandexSms-Digest: 2e8706fab3017bf2973a6601ecaebabe
+
+
+------==--bound.250819.sas1-063d61d846d8.qloud-c.yandex.net
+Content-Type: multipart/related;
+	boundary="----==--bound.250820.sas1-063d61d846d8.qloud-c.yandex.net"
+
+
+------==--bound.250820.sas1-063d61d846d8.qloud-c.yandex.net
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html
+
+<div><img src="cid:2508181560086194@sas1-063d61d846d8.qloud-c.yandex.net" /></div><div>Samura #1</div>
+------==--bound.250820.sas1-063d61d846d8.qloud-c.yandex.net
+Content-Disposition: inline;
+	filename="Remsha.jpg"
+Content-Id: <2508181560086194@sas1-063d61d846d8.qloud-c.yandex.net>
+Content-Transfer-Encoding: base64
+Content-Type: image/jpeg;
+	name="Remsha.jpg"
+
 /9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcU
 FhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgo
 KCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wgARCALmAfQDASIA
@@ -1341,3 +1395,6 @@ ydndIAAz5s3DBac1FhjI77vX4lqH1DZGnNNdwon0b+Gqj4A/4CTYajTsCbFqfuLREsKzF5d5nNLG
 JQlg8uLh3LIM7IcfVhqFQXachwZze4qkPAlmqG/LEQV4WrSFj3mPuIwa1zbkYhhbHdXiGrE2N1zX
 mKeXryUpnrRqKoClhugq+qWeKHGSR0+JY3HAdF7ljcoxjyPUtzEgEtYhV1GrdF8fJOIAXn6ffN/8
 TEpjkI3yy36YYmyf/9k=
+------==--bound.250820.sas1-063d61d846d8.qloud-c.yandex.net--
+
+------==--bound.250819.sas1-063d61d846d8.qloud-c.yandex.net--

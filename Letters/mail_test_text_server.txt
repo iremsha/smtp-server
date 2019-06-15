@@ -1,0 +1,36 @@
+Received: from mxback4o.mail.yandex.net ([127.0.0.1])
+	by mxback4o.mail.yandex.net with LMTP id HO3rx2de
+	for <antohasob99@yandex.ru>; Sat, 15 Jun 2019 21:10:03 +0300
+Received: from mxback4o.mail.yandex.net (localhost.localdomain [127.0.0.1])
+	by mxback4o.mail.yandex.net (Yandex) with ESMTP id 62A804CC1344
+	for <antohasob99@yandex.ru>; Sat, 15 Jun 2019 21:10:03 +0300 (MSK)
+X-Yandex-Internal: 1
+Received: from localhost (localhost [::1])
+	by mxback4o.mail.yandex.net (nwsmtp/Yandex) with ESMTP id os8QJERgCi-A25qXYPd;
+	Sat, 15 Jun 2019 21:10:02 +0300
+X-Yandex-Front: mxback4o.mail.yandex.net
+X-Yandex-TimeMark: 1560622202.982
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail; t=1560622203;
+	bh=9fT/df+pV/GDQXVpvyeJSEgtNqZjCOv2mpD/Ty96XmA=;
+	h=Message-Id:Date:Subject:To:From;
+	b=Tg1IBJPTodF1W/k4WmBOgNBcQzLicNf2maJxySlonoBwqZU1lZncsj4NND01oVTap
+	 bKQRVruouw44jmvh9Cqst5DzWMAeIoOEAJXt36/J5Q7y6yCNVsJAAaqM/ZDrw1s+Jd
+	 i3NiNsetHUYp0ZF3mYLqGGau8OsHG3YUDfA0ojwA=
+Authentication-Results: mxback4o.mail.yandex.net; dkim=pass header.i=@yandex.ru
+X-Yandex-Spam: 1
+X-Yandex-Sender-Uid: 860495106
+Received: by iva5-fb4da115b4b5.qloud-c.yandex.net with HTTP;
+	Sat, 15 Jun 2019 21:10:02 +0300
+From: =?utf-8?B?0JDQvdGC0L7QvSDQodC+0LHQvtC70LXQsg==?= <antohasob99@yandex.ru>
+To: antohasob99 <antohasob99@yandex.ru>
+Subject: SMTP
+MIME-Version: 1.0
+X-Mailer: Yamail [ http://yandex.ru ] 5.0
+Date: Sat, 15 Jun 2019 23:10:02 +0500
+Message-Id: <4308491560622202@iva5-fb4da115b4b5.qloud-c.yandex.net>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html
+Return-Path: antohasob99@yandex.ru
+X-YandexSms-Digest: aad347c542fdcb58341fd2bf54c5a28e
+
+<div>Simple text example!</div>

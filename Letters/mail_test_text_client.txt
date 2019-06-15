@@ -1,0 +1,27 @@
+Received: from mxfront6o.mail.yandex.net (localhost [127.0.0.1])
+	by mxfront6o.mail.yandex.net with LMTP id MqmMMpZakk-EJHGFk97
+	for <antohasob99@yandex.ru>; Sat, 15 Jun 2019 08:32:36 +0300
+Received: from unknown (unknown [188.18.190.228])
+	by mxfront6o.mail.yandex.net (nwsmtp/Yandex) with ESMTP id kYPj7r2tvX-WZGOJJNi;
+	Sat, 15 Jun 2019 08:32:36 +0300
+Return-Path: ir@remsha.online
+X-Yandex-Front: mxfront6o.mail.yandex.net
+X-Yandex-TimeMark: 1560576756.017
+Message-Id: <20190615083236.WZGOJJNi@mxfront6o.mail.yandex.net>
+Date: Sat, 15 Jun 2019 08:32:36 +0300
+Authentication-Results: mxfront6o.mail.yandex.net; spf=softfail (mxfront6o.mail.yandex.net: transitioning domain of remsha.online does not designate 188.18.190.228 as permitted sender, rule=[~all]) smtp.mail=ir@remsha.online
+X-Yandex-Spam: 1
+X-Yandex-Envelope: aGVsbz1yZW1zaGEub25saW5lCm1haWxfZnJvbT1pckByZW1zaGEub25saW5lCnJjcHRfdG89YW50b2hhc29iOTlAeWFuZGV4LnJ1CnJlbW90ZV9ob3N0PXVua25vd24KcmVtb3RlX2lwPTE4OC4xOC4xOTAuMjI4Cg==
+X-Yandex-Fwd: MTIwODg3NDAwNzE3ODE0ODMxMDksMTI3NDEwODI3NDMxMTE3MjQ1NzQ=
+From: albus@remsha.online
+To: antohasob99@yandex.ru
+MIME-Version: 1.0
+Subject: Протоколы Интернет
+Content-Type: multipart/mixed; boundary="gc0p4Jq0M2Yt08jU534c0p"
+X-Yandex-Forward: ac32f49d8a1579d2c101a2dd0426872a
+
+--gc0p4Jq0M2Yt08jU534c0p
+Content-Type: text/html; charset=utf-8
+
+Вы приняты вы Хогвартc на факультет Гриффиндор.
+Получено: от mxfront6o.mail.yandex.net (localhost [127.0.0.1]) по mxfront6o.mail.yandex.net с идентификатором LMTP MqmMMpZakk-EJHGFk97 для <antohasob99@yandex.ru>; Сб, 15 июня 2019 08:32:36 +0300 Получено: от неизвестно (неизвестно [188.18.190.228]) mxfront6o.mail.yandex.net (nwsmtp / Yandex) с идентификатором ESMTP kYPj7r2tvX-WZGOJJNi; Сб, 15 июня 2019 08:32:36 +0300 Return-Path: ir@remsha.online X-Yandex-Front: mxfront6o.mail.yandex.net X-Yandex-TimeMark: 1560576756.017 Идентификатор сообщения: <20190615083236.WZGOJJNi@mxfront6o.mail.yandex.net> Дата: сб, 15 июня 2019 г. 08:32:36 +0300 Результаты аутентификации: mxfront6o.mail.yandex.net; spf = softfail (mxfront6o.mail.yandex.net: переходный домен remsha.online не определяет 188.18.190.228 в качестве разрешенного отправителя, rule = [~ all]) smtp.mail=ir@remsha.online X-Yandex-Спам: 1 X-Yandex-Конверт: aGVsbz1yZW1zaGEub25saW5lCm1haWxfZnJvbT1pckByZW1zaGEub25saW5lCnJjcHRfdG89YW50b2hhc29iOTlAeWFuZGV4LnJ1TWWXVC0VVXVC0VVCWRVBRXVBRXVBRXVBRXVBRXVBRXVBRXBX X-Yandex-Fwd: MTIwODg3NDAwNzE3ODE0ODMxMDksMTI3NDEwODI3NDMxMTE3MjQ1NzQ = От: albus@remsha.online To: antohasob99@yandex.ru MIME-версия: 1.0 Тема: Протоколы Интернет Тип контента: составной / смешанный; граница = "gc0p4Jq0M2Yt08jU534c0p" X-Yandex-Forward: ac32f49d8a1579d2c101a2dd0426872a --gc0p4Jq0M2Yt08jU534c0p Content-Type: text / html; кодировка = UTF-8 Вы решили вы Хогвартц на факультете Гриффиндор.
