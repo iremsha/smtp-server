@@ -32,6 +32,16 @@ def decode_image(data):
     print('Done')
 
 
+def decode_audio(data):
+    print(1)
+    PATH = r'C:\Users\Remsha\Documents\GitHub\SMTP-Server\Mailbox\attachment'
+    name = '\\' + data[14:21]
+    data = base64.b64decode(data)
+    with open(PATH + name + '.mp3', 'wb') as f:
+        f.write(data)
+    print('Done')
+
+
 def clean_header(mail_obj):
     """
     Убираем закодированные доп. заголовки которые прикрутил отправитель.
@@ -73,8 +83,8 @@ def parse_data(data):
     """
 
     # Тестим то, как декодируются сообщения
-    # with open('Letters\\mail_test_img_text.txt', 'r') as f:
-    #  data = f.read()
+    with open('Letters\\mail_test_audio.txt', 'r') as f:
+        data = f.read()
 
     mail_from, mail_to, mail_subject, mail_body, mail_date = '', '', '', '', ''
     mail = email.message_from_string(data)
@@ -103,6 +113,9 @@ def parse_data(data):
             elif ctype == 'text/html':
                 body = part.get_payload()
                 mail_body = clean_html(body)
+            elif ctype == 'audio/mpeg':
+                body = part.get_payload()
+                decode_audio(body)
 
     else:
         # Если это было обычное письмо без раздение на части
