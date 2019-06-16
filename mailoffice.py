@@ -33,11 +33,19 @@ def decode_image(data):
 
 
 def decode_audio(data):
-    print(1)
     PATH = r'C:\Users\Remsha\Documents\GitHub\SMTP-Server\Mailbox\attachment'
     name = '\\' + data[14:21]
     data = base64.b64decode(data)
     with open(PATH + name + '.mp3', 'wb') as f:
+        f.write(data)
+    print('Done')
+
+
+def decode_pdf(data):
+    PATH = r'C:\Users\Remsha\Documents\GitHub\SMTP-Server\Mailbox\attachment'
+    name = '\\' + data[14:21]
+    data = base64.b64decode(data)
+    with open(PATH + name + '.pdf', 'wb') as f:
         f.write(data)
     print('Done')
 
@@ -116,6 +124,11 @@ def parse_data(data):
             elif ctype == 'audio/mpeg':
                 body = part.get_payload()
                 decode_audio(body)
+            elif ctype == 'application/pdf':
+                body = part.get_payload()
+                decode_pdf(body)
+
+
 
     else:
         # Если это было обычное письмо без раздение на части
