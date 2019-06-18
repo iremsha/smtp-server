@@ -12,7 +12,7 @@ def send_command(sock, command, buffer=1024):
     :param buffer:
     :return: Прочитанный ответ
     """
-    sock.send(command + b'\n')
+    sock.sendall(command + b'\n')
     return sock.recv(buffer).decode()
 
 
@@ -40,15 +40,14 @@ class SMTPServerCore:
         Главный цикл общения сервера и клиента.
         :return:
         """
-        self.socket.send(b'220 mail.remsha.online SMTP is glad to see you!\n')
+        self.socket.sendall(b'220 mail.remsha.online SMTP is glad to see you!\n')
         while True:
-            data = ''
+            data = bytearray()
             complete_line = 0
 
             while not complete_line:
                 part = self.socket.recv(1024)
-                part = part.decode()
-                if len(part):
+                if part:
                     data += part
                     if len(data) >= 2:
                         complete_line = 1
@@ -60,7 +59,7 @@ class SMTPServerCore:
                             keep_connection = 1
                             if code is None:
                                 continue
-                        self.socket.send(code + b"\n")
+                        self.socket.sendall(code + b"\n")
                         if not keep_connection:
                             self.socket.close()
                 else:
@@ -73,6 +72,7 @@ class SMTPServerCore:
         :param data:
         :return:
         """
+        data = data.decode()
         cmd = data[0:4]
         cmd = cmd.upper()
         keep_connection = 1

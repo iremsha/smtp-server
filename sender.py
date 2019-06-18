@@ -30,5 +30,5 @@ def send_mail(mail_exchanger, data, recipient):
         finally:
             # Закрываем соеденинене с Сервером Форвардом и отправляем киленту его сообщения
             sock.close()
-            print(throw_answer)
+            print('Answer server:\n{}'.format(throw_answer))
             return throw_answer.encode()

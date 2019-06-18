@@ -1,11 +1,16 @@
 import base64
 import codecs
+import os
 from email.header import decode_header
 import resolver
 import sender
 from mailbox import Mailbox
 import email
 import re
+from mailbox import PATH
+
+PATH_ATTACHMENT = os.path.join(PATH, 'attachment')
+PATH_LETTERS = os.path.join(PATH, 'letters')
 
 
 def parse_simple_letter(mail):
@@ -24,30 +29,27 @@ def decode_image(data):
     :param data:
     :return:
     """
-    PATH = r'C:\Users\Remsha\Documents\GitHub\SMTP-Server\Mailbox\attachment'
-    name = '\\' + data[14:21]
+    name = data[14:21]
     data = base64.b64decode(data)
-    with open(PATH+name+'.png', 'wb') as f:
+    with open(os.path.join(PATH_ATTACHMENT, name + '.png'), 'wb') as f:
         f.write(data)
-    print('Done')
+    print('Done image')
 
 
 def decode_audio(data):
-    PATH = r'C:\Users\Remsha\Documents\GitHub\SMTP-Server\Mailbox\attachment'
-    name = '\\' + data[14:21]
+    name = data[14:21]
     data = base64.b64decode(data)
-    with open(PATH + name + '.mp3', 'wb') as f:
+    with open(os.path.join(PATH_ATTACHMENT, name + '.mp3'), 'wb') as f:
         f.write(data)
-    print('Done')
+    print('Done audio')
 
 
 def decode_pdf(data):
-    PATH = r'C:\Users\Remsha\Documents\GitHub\SMTP-Server\Mailbox\attachment'
-    name = '\\' + data[14:21]
+    name = data[14:21]
     data = base64.b64decode(data)
-    with open(PATH + name + '.pdf', 'wb') as f:
+    with open(os.path.join(PATH_ATTACHMENT, name + '.pdf'), 'wb') as f:
         f.write(data)
-    print('Done')
+    print('Done pdf')
 
 
 def clean_header(mail_obj):
@@ -86,12 +88,13 @@ def clean_html(raw_html):
 def parse_data(data):
     """
     Разбираем поступившие данные, получаем все заголовки и тело письма.
-    :param data:
+    :param data: данный, что нам передали (для тестов данные беру из файла).
     :return:
     """
 
     # Тестим то, как декодируются сообщения
-    with open('Letters\\mail_test_audio.txt', 'r') as f:
+    print(PATH_LETTERS)
+    with open(os.path.join(PATH_LETTERS, 'mail_test_main.txt'), 'r') as f:
         data = f.read()
 
     mail_from, mail_to, mail_subject, mail_body, mail_date = '', '', '', '', ''
@@ -144,6 +147,7 @@ class MailOffice:
         self.data = ''
 
     def do_data(self, data):
+        data = data.decode()
         self.detect_host(self.recipient.login)
         if self.our_client():
             '''Переименовать'''

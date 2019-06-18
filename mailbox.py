@@ -1,7 +1,8 @@
 import datetime
 import os
 
-PATH = r'C:\Users\Remsha\Documents\GitHub\SMTP-Server\Mailbox\\'
+dirname = os.path.dirname('SMTP-Server')
+PATH = os.path.join(dirname, 'Mailbox')
 
 
 def microtime(dt):
@@ -21,7 +22,8 @@ def set_letter(forward, recipient, topic, text):
 class Mailbox:
     def __init__(self, name):
         self.name = name
-        self.path = PATH + self.name + '\\'
+        # self.path = PATH + self.name + '\\'
+        self.path = os.path.join(PATH, self.name)
         self.create_mailbox()
 
     def create_mailbox(self):
@@ -30,6 +32,6 @@ class Mailbox:
 
     def write_letter(self, forward, recipient, topic, text):
         letter = set_letter(forward, recipient, topic, text)
-        with open(self.path + topic + '.txt', 'w') as f:
+        with open(os.path.join(self.path, topic + '.txt'), 'w') as f:
             f.write(letter)
 
