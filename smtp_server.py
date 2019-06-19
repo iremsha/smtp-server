@@ -1,6 +1,9 @@
+import threading
 import socket
 from client import Forward, Recipient
 from mailoffice import MailOffice
+
+
 LOCAL_HOST = 'remsha.online'
 
 
@@ -137,7 +140,8 @@ class SMTPServer:
         while True:
             conn, addr = self.socket.accept()
             engine = SMTPServerCore(conn)
-            engine.session()
+            t = threading.Thread(target=engine.session())
+            t.start()
 
 
 '''
