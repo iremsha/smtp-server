@@ -16,6 +16,7 @@ if __name__ == '__main__':
         port = int(sys.argv[1])
     else:
         port = 25
+
     server = SMTPServer()
     print('server start')
     server.socket_accept()
