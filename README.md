@@ -14,36 +14,12 @@
 ![Screenshot](Screenshots/Screenshot_1.png)
 ![Screenshot](Screenshots/Screenshot_2.png)
 
+>Сервер успешно получает/отправляет письма в почтовые ящики yandex.ru и mail.ru, для gmail.com работает только получение.
+
 # Изображение-2 [Отправляем письмо в почтовый ящик mail.ru представивщийсь именем username@urfu.ru]
 ![Screenshot](Screenshots/Screenshot_3.png)
 
 # Пример простейшей сессии
-<<<<<<< Updated upstream
-C: — клиент, S: — сервер
-S: (ожидает соединения)
-C: (Подключается к порту 25 сервера)
-S:220 mail.remsha.online SMTP is glad to see you!
-C:HELO
-S:250 OK
-C:MAIL FROM: <cat@remsha.online>
-S:250 OK
-C:RCPT TO: <dog@remsha.online>
-S:250 OK
-C:DATA
-S:354 OK, Enter data, terminated with a \\r\\n.
-C:From: Some User <cat@remsha.online>
-C:To: Other User <dog@remsha.online>
-C:Subject: tema
-C:Content-Type: text/plain
-C:
-C:Hi!
-C:.
-S:250 769947 message accepted for delivery
-C:QUIT
-S:221 remsha.online Service closing
-S: (закрывает соединение)
+![Screenshot](Screenshots/Screenshot_4.png)
 
 >Необходим интерпретатор Python версии не ниже, чем 3.6
-=======
-![Screenshot](Screenshots/Screenshot_4.png)
->>>>>>> Stashed changes
