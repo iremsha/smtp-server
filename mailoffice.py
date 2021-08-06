@@ -15,7 +15,7 @@ PATH_LETTERS = os.path.join(PATH, 'letters')
 
 def parse_simple_letter(mail):
     """
-    Парсим простое письмо, если в нейм нет Бордеров.
+    Парсим простое письмо, если в нем нет Бордеров.
     :param mail:
     :return:
     """
@@ -25,7 +25,7 @@ def parse_simple_letter(mail):
 
 def decode_image(data):
     """
-    Декодируем изображение и записываем его в фаил.
+    Декодируем изображение и записываем его в файл.
     :param data:
     :return:
     """
@@ -130,9 +130,6 @@ def parse_data(data):
             elif ctype == 'application/pdf':
                 body = part.get_payload()
                 decode_pdf(body)
-
-
-
     else:
         # Если это было обычное письмо без раздение на части
         mail_body = parse_simple_letter(data)
@@ -170,7 +167,6 @@ class MailOffice:
             mailbox = Mailbox(self.recipient.login)
             mailbox.write_letter(forward, recipient, topic, body)
 
-    '''
     def create_message(self, login, recipient, theme, message_text):  # attachment
         BOUNDARY = 0
         return (
@@ -183,11 +179,10 @@ class MailOffice:
             f'Content-Transfer-Encoding: 8bit\n'
             f'Content-Type: text/html; charset=utf-8\n\n'
             f'{message_text}\n'
-            # f'{attachment}\n' 
+            # f'{attachment}\n'
             f'--{BOUNDARY}--\n'
             f'.'
         )
-
 
     def handle_attachment(self, files):
         result_attachment = '' \
@@ -203,7 +198,5 @@ class MailOffice:
                      f'	filename="{file}"')
                 )
 
-
     def prepare_message_text(self, message):
         return message
-    '''

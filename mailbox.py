@@ -2,7 +2,7 @@ import datetime
 import os
 
 dirname = os.path.dirname('SMTP-Server')
-PATH = os.path.join(dirname, 'Mailbox')
+PATH = os.path.join(dirname, 'mailbox')
 
 
 def microtime(dt):
